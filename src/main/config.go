@@ -18,10 +18,10 @@ type Config struct {
 			ReadEnabled  bool `json:"read_enabled"`
 			WriteEnabled bool `json:"write_enabled"`
 			Connection   struct {
-				URL   string `json:"url"`
-				Name  string `json:"name"`
-				Tasks string `json:"tasks"`
-				Logs  string `json:"logs"`
+				URL             string `json:"url"`
+				Database        string `json:"database"`
+				TasksCollection string `json:"tasks_coll"`
+				LogsCollection  string `json:"logs_coll"`
 			} `json:"connection"`
 		} `json:"mongodb"`
 	} `json:"storage"`
