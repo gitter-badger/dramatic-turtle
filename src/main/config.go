@@ -13,7 +13,7 @@ type Config struct {
 		Port int `json:"port"`
 	} `json:"server"`
 	Storage struct {
-		MongoDB struct {
+		MongoDB []struct {
 			Active       bool `json:"active"`
 			ReadEnabled  bool `json:"read_enabled"`
 			WriteEnabled bool `json:"write_enabled"`
