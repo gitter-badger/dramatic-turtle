@@ -1,5 +1,18 @@
 {
     "server": {
         "port": 8080
+    },
+    "storage": {
+        "mongodb": {
+            "active": true,
+            "read_enabled": true,
+            "write_enabled": true,
+            "connection": {
+                "url": "127.0.0.1:27017",
+                "name": "dramatic-turtle",
+                "tasks": "tasks",
+                "logs": "logs"
+            }
+        }
     }
 }
