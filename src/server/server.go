@@ -7,10 +7,16 @@ import (
 	"net/http"
 	"strconv"
 
+	"../config"
 	"../core"
+	"../storage"
+	"../storage/models"
+	"../storage/mongo"
 	"./contracts"
 	"github.com/gorilla/mux"
 )
+
+var storages []storage.IStorage
 
 func getTask(w http.ResponseWriter, r *http.Request) {
 	var data contracts.GetTaskRequest
@@ -24,8 +30,14 @@ func createTask(w http.ResponseWriter, r *http.Request) {
 	var data contracts.CreateTaskRequest
 	err := json.NewDecoder(r.Body).Decode(&data)
 	core.CheckErr(err)
-
 	fmt.Println(data.Name)
+
+	task := models.Task{
+		Name: data.Name}
+
+	for _, s := range storages {
+		s.GetTaskStorage().StoreTask(task)
+	}
 }
 
 func startLogging(w http.ResponseWriter, r *http.Request) {
@@ -45,7 +57,11 @@ func stopLogging(w http.ResponseWriter, r *http.Request) {
 }
 
 // Start func
-func Start(port int) {
+func Start(conf config.Config) {
+	m := &mongo.Mongo{}
+	m.Connect()
+	storages = append(storages, m)
+
 	router := mux.NewRouter()
 
 	router.HandleFunc("/task", getTask).Methods("GET")
@@ -53,5 +69,5 @@ func Start(port int) {
 	router.HandleFunc("/log/start", startLogging).Methods("POST")
 	router.HandleFunc("/log/stop", stopLogging).Methods("POST")
 
-	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(port), router))
+	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(conf.Server.Port), router))
 }
