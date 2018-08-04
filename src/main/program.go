@@ -9,7 +9,8 @@ import (
 )
 
 func main() {
-	d, _ := os.Getwd()
+	print(os.Args)
+	d := filepath.Dir(os.Args[0])
 	d = filepath.FromSlash(d)
 	configuration := config.LoadConfig(filepath.Join(d, "config.json"))
 	server.Start(configuration)
