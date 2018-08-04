@@ -16,7 +16,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var storages []storage.IStorage
+var dataStorage storage.IStorage
 
 func getTask(w http.ResponseWriter, r *http.Request) {
 	var req contracts.GetTaskRequest
@@ -24,7 +24,7 @@ func getTask(w http.ResponseWriter, r *http.Request) {
 	core.CheckErr(err)
 	fmt.Println(req.Name)
 
-	task := storages[0].GetTaskStorage().ReadTask(req.Name)
+	task := dataStorage.GetTaskStorage().ReadTask(req.Name)
 
 	resp := contracts.GetTaskResponse{
 		Name: task.Name}
@@ -42,9 +42,7 @@ func createTask(w http.ResponseWriter, r *http.Request) {
 	task := models.Task{
 		Name: req.Name}
 
-	for _, s := range storages {
-		s.GetTaskStorage().StoreTask(task)
-	}
+	dataStorage.GetTaskStorage().StoreTask(task)
 
 	resp := contracts.CreateTaskResponse{
 		Name: task.Name}
@@ -54,19 +52,41 @@ func createTask(w http.ResponseWriter, r *http.Request) {
 }
 
 func startLogging(w http.ResponseWriter, r *http.Request) {
-	var data contracts.StartLoggingRequest
-	err := json.NewDecoder(r.Body).Decode(&data)
+	var req contracts.StartLoggingRequest
+	err := json.NewDecoder(r.Body).Decode(&req)
 	core.CheckErr(err)
 
-	fmt.Println(data.Task)
+	log := models.Log{
+		Task:  req.Task,
+		Start: 1}
+
+	id := dataStorage.GetLogStorage().StoreLog(log)
+
+	resp := contracts.StartLoggingResponse{
+		Task: log.Task,
+		Ref:  id}
+
+	payload, err := json.Marshal(resp)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(payload)
 }
 
 func stopLogging(w http.ResponseWriter, r *http.Request) {
-	var data contracts.StopLoggingRequest
-	err := json.NewDecoder(r.Body).Decode(&data)
+	var req contracts.StopLoggingRequest
+	err := json.NewDecoder(r.Body).Decode(&req)
 	core.CheckErr(err)
 
-	fmt.Println(strconv.Itoa(data.ReferenceID))
+	log := dataStorage.GetLogStorage().ReadLog("5b65e1a018f2e46919ac413d")
+	log.End = 1
+	dataStorage.GetLogStorage().ReplaceLog("5b65e1a018f2e46919ac413d", log)
+
+	resp := contracts.StartLoggingResponse{
+		Task: log.Task,
+		Ref:  "-1"}
+
+	payload, err := json.Marshal(resp)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(payload)
 }
 
 // Start func
@@ -74,7 +94,7 @@ func Start(conf config.Config) {
 	mongoConf := conf.Storage.MongoDB[0]
 	m := &mongo.Mongo{}
 	m.Connect(mongoConf.Connection.URL, mongoConf.Connection.Database)
-	storages = append(storages, m)
+	dataStorage = m
 
 	router := mux.NewRouter()
 

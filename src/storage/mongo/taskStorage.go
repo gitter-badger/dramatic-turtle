@@ -5,6 +5,7 @@ import (
 
 	"github.com/mongodb/mongo-go-driver/bson"
 
+	"../../core"
 	"../models"
 	"github.com/mongodb/mongo-go-driver/mongo"
 )
@@ -20,8 +21,10 @@ func createTaskStorage(m *Mongo, n string) *TaskStorage {
 }
 
 // StoreTask func
-func (ts *TaskStorage) StoreTask(task models.Task) {
-	ts.coll.InsertOne(context.Background(), task)
+func (ts *TaskStorage) StoreTask(task models.Task) string {
+	id, err := ts.coll.InsertOne(context.Background(), task)
+	core.CheckErr(err)
+	return ts.mongo.getID(id)
 }
 
 // ReadTask func

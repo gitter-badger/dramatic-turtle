@@ -3,6 +3,8 @@ package mongo
 import (
 	"context"
 
+	"github.com/mongodb/mongo-go-driver/bson/objectid"
+
 	"../../core"
 	"../../storage"
 	"github.com/mongodb/mongo-go-driver/mongo"
@@ -35,4 +37,9 @@ func (m *Mongo) GetTaskStorage() storage.ITaskStorage {
 // GetLogStorage func
 func (m *Mongo) GetLogStorage() storage.ILogStorage {
 	return m.logStorage
+}
+
+func (m *Mongo) getID(x *mongo.InsertOneResult) string {
+	c := x.InsertedID.(objectid.ObjectID)
+	return c.Hex()
 }
