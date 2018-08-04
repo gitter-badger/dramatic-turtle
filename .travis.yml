@@ -3,5 +3,6 @@ language: go
 sudo: false
 
 script:
+  - make get
   - make build
   - diff -u <(echo -n) <(gofmt -d .)
