@@ -76,13 +76,14 @@ func stopLogging(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&req)
 	core.CheckErr(err)
 
-	log := dataStorage.GetLogStorage().ReadLog("5b65e1a018f2e46919ac413d")
+	log := dataStorage.GetLogStorage().ReadLog(req.Ref)
 	log.End = 1
-	dataStorage.GetLogStorage().ReplaceLog("5b65e1a018f2e46919ac413d", log)
+	dataStorage.GetLogStorage().ReplaceLog(req.Ref, log)
 
-	resp := contracts.StartLoggingResponse{
-		Task: log.Task,
-		Ref:  "-1"}
+	resp := contracts.StopLoggingResponse{
+		Task:       log.Task,
+		Ref:        req.Ref,
+		LoggedTime: 1}
 
 	payload, err := json.Marshal(resp)
 	w.Header().Set("Content-Type", "application/json")
