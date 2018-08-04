@@ -3,5 +3,5 @@ language: go
 sudo: false
 
 script:
-  - go get -t -v ./...
+  - make build
   - diff -u <(echo -n) <(gofmt -d .)

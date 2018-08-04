@@ -89,7 +89,6 @@ func stopLogging(w http.ResponseWriter, r *http.Request) {
 
 // Start func
 func Start(conf config.Config) {
-	return
 	mongoConf := conf.Storage.MongoDB
 	m := &mongo.Mongo{}
 	m.Connect(mongoConf.Connection.URL, mongoConf.Connection.Database)
