@@ -4,9 +4,24 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build",
+            "label": "Make Docker image",
             "type": "shell",
-            "command": "make build"
+            "command": "make build-docker"
+        },
+        {
+            "label": "Unix: Make Docker image and run it",
+            "type": "shell",
+            "command": "make build-docker && make run-docker"
+        },
+        {
+            "label": "Windows: Make Docker image and run it",
+            "type": "shell",
+            "command": "make build-docker; make run-docker"
+        },
+        {
+            "label": "Docker: Remove dangling images",
+            "type": "shell",
+            "command": "docker rmi $(docker images --filter “dangling=true” -q --no-trunc)"
         }
     ]
 }
