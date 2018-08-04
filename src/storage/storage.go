@@ -7,7 +7,7 @@ import (
 // ITaskStorage interface
 type ITaskStorage interface {
 	StoreTask(t models.Task)
-	ReadTask(i int) models.Task
+	ReadTask(name string) models.Task
 }
 
 // ILogStorage interface
