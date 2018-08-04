@@ -89,7 +89,7 @@ func stopLogging(w http.ResponseWriter, r *http.Request) {
 
 // Start func
 func Start(conf config.Config) {
-	mongoConf := conf.Storage.MongoDB[0]
+	mongoConf := conf.Storage.MongoDB
 	m := &mongo.Mongo{}
 	m.Connect(mongoConf.Connection.URL, mongoConf.Connection.Database)
 	dataStorage = m
