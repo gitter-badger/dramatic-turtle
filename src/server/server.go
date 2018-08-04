@@ -71,8 +71,9 @@ func stopLogging(w http.ResponseWriter, r *http.Request) {
 
 // Start func
 func Start(conf config.Config) {
+	mongoConf := conf.Storage.MongoDB[0]
 	m := &mongo.Mongo{}
-	m.Connect()
+	m.Connect(mongoConf.Connection.URL, mongoConf.Connection.Database)
 	storages = append(storages, m)
 
 	router := mux.NewRouter()

@@ -18,16 +18,13 @@ type Mongo struct {
 }
 
 // Connect func
-func (m *Mongo) Connect() {
-	client, err := mongo.Connect(
-		context.Background(),
-		"mongodb://localhost:27017",
-		nil)
+func (m *Mongo) Connect(url string, database string) {
+	client, err := mongo.Connect(context.Background(), url, nil)
 	core.CheckErr(err)
 
-	m.db = client.Database("dramatic-turtle")
-	m.taskStorage = createTaskStorage(m)
-	m.logStorage = createLogStorage(m)
+	m.db = client.Database(database)
+	m.taskStorage = createTaskStorage(m, "tasks")
+	m.logStorage = createLogStorage(m, "logs")
 }
 
 // GetTaskStorage func

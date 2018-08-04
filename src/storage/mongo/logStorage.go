@@ -16,8 +16,8 @@ type LogStorage struct {
 	coll  *mongo.Collection
 }
 
-func createLogStorage(m *Mongo) *LogStorage {
-	return &LogStorage{mongo: m, coll: m.db.Collection("logs")}
+func createLogStorage(m *Mongo, n string) *LogStorage {
+	return &LogStorage{mongo: m, coll: m.db.Collection(n)}
 }
 
 // StoreLog func

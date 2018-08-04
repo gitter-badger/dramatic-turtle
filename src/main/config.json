@@ -9,10 +9,8 @@
                 "read_enabled": true,
                 "write_enabled": true,
                 "connection": {
-                    "url": "127.0.0.1:27017",
-                    "database": "dramatic-turtle",
-                    "tasks_coll": "tasks",
-                    "logs_coll": "logs"
+                    "url": "mongodb://127.0.0.1:27017",
+                    "database": "dramatic-turtle"
                 }
             }
         ]

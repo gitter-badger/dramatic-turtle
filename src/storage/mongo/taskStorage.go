@@ -15,8 +15,8 @@ type TaskStorage struct {
 	coll  *mongo.Collection
 }
 
-func createTaskStorage(m *Mongo) *TaskStorage {
-	return &TaskStorage{mongo: m, coll: m.db.Collection("tasks")}
+func createTaskStorage(m *Mongo, n string) *TaskStorage {
+	return &TaskStorage{mongo: m, coll: m.db.Collection(n)}
 }
 
 // StoreTask func
