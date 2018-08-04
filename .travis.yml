@@ -4,5 +4,5 @@ sudo: false
 
 script:
   - make get
-  - make build
+  - make dev-build
   - diff -u <(echo -n) <(gofmt -d .)

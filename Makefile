@@ -1,5 +1,4 @@
 dev-build:
-	$(MAKE) get
 	go build -o "./bin/Program.exe" "./src/main/program.go"
 	cp "./src/main/config.json" "./bin/config.json"
 
