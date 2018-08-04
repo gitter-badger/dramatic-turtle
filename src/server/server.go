@@ -22,7 +22,6 @@ func getTask(w http.ResponseWriter, r *http.Request) {
 	var req contracts.GetTaskRequest
 	err := json.NewDecoder(r.Body).Decode(&req)
 	core.CheckErr(err)
-	fmt.Println(req.Name)
 
 	task := dataStorage.GetTaskStorage().ReadTask(req.Name)
 
@@ -37,7 +36,6 @@ func createTask(w http.ResponseWriter, r *http.Request) {
 	var req contracts.CreateTaskRequest
 	err := json.NewDecoder(r.Body).Decode(&req)
 	core.CheckErr(err)
-	fmt.Println(req.Name)
 
 	task := models.Task{
 		Name: req.Name}
