@@ -1,5 +1,8 @@
-build:
+clean:
 	rm "./bin" -rf
+
+build:
+	$(MAKE) clean
 	go build -o "./bin/Program.exe" "./src/main"
 	cp "./src/main/config.json" "./bin/config.json"
 
