@@ -1,4 +1,5 @@
 FROM golang:latest as builder
+LABEL maintainer="https://github.com/HeikoAlexanderWeber"
 RUN mkdir -p /application
 COPY . /application
 WORKDIR /application
