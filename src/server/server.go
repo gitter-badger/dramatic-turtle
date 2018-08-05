@@ -27,6 +27,7 @@ func getTask(w http.ResponseWriter, r *http.Request) {
 	resp := contracts.GetTaskResponse{
 		Name: task.Name}
 	payload, err := json.Marshal(resp)
+	core.CheckErr(err)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(payload)
 }
@@ -44,6 +45,7 @@ func createTask(w http.ResponseWriter, r *http.Request) {
 	resp := contracts.CreateTaskResponse{
 		Name: task.Name}
 	payload, err := json.Marshal(resp)
+	core.CheckErr(err)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(payload)
 }
@@ -64,6 +66,7 @@ func startLogging(w http.ResponseWriter, r *http.Request) {
 		Ref:  id}
 
 	payload, err := json.Marshal(resp)
+	core.CheckErr(err)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(payload)
 }
@@ -83,6 +86,7 @@ func stopLogging(w http.ResponseWriter, r *http.Request) {
 		LoggedTime: 1}
 
 	payload, err := json.Marshal(resp)
+	core.CheckErr(err)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(payload)
 }
