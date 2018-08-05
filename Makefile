@@ -22,5 +22,5 @@ run-docker:
 
 docker-build:
 	$(MAKE) get
-	go build -o "./bin/program" "./src/main/program.go"
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o "./bin/program" "./src/main/program.go"
 	cp "./src/main/config.json" "./bin/config.json"
