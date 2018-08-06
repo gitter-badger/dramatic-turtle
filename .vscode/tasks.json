@@ -6,17 +6,12 @@
         {
             "label": "Make Docker image",
             "type": "shell",
-            "command": "make build-docker"
+            "command": "make docker-build"
         },
         {
-            "label": "Unix: Make Docker image and run it",
+            "label": "Make Docker image and run it",
             "type": "shell",
-            "command": "make build-docker && make run-docker"
-        },
-        {
-            "label": "Windows: Make Docker image and run it",
-            "type": "shell",
-            "command": "make build-docker; make run-docker"
+            "command": "make docker-build && make docker-run"
         },
         {
             "label": "Docker: Remove dangling images",

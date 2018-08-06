@@ -2,7 +2,7 @@ FROM golang:latest as builder
 RUN mkdir -p /application
 COPY . /application
 WORKDIR /application
-RUN make docker-build
+RUN make docker-build-project
 
 
 FROM alpine:3.8
