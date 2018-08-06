@@ -3,6 +3,5 @@ language: go
 sudo: false
 
 script:
-  - make get
-  - make dev-build
-  - diff -u <(echo -n) <(gofmt -d .)
+  - make init
+  - make docker-build-image
