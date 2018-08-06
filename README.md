@@ -10,7 +10,8 @@
 * Available cli (bash, powershell etc)
 ### Steps
 To get started developing, follow these simple steps:
-* Clone this repository to your folder "$(folder)"
+* Clone this repository to your folder $(folder)
 * Start bash, powershell or the cli of your choice
+* cd into $(folder)
 * Invoke the "get" process in the Makefile using "make get" (this will download dependencies).
 * Build the executable using "make dev-build" (this command is not final yet and subject to change).
