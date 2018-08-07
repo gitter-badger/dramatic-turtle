@@ -24,7 +24,7 @@ func (m *Mongo) Connect(url string, database string) {
 	core.CheckErr(err)
 
 	m.db = client.Database(database)
-	m.taskStorage = createTaskStorage(m, "tasks")
+	m.taskStorage = createTaskStorage(m, "log")
 }
 
 // GetTaskStorage func
