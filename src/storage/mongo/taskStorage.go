@@ -6,6 +6,7 @@ import (
 	"github.com/mongodb/mongo-go-driver/bson"
 
 	"../../core"
+	"../../storage"
 	"../models"
 	"github.com/mongodb/mongo-go-driver/mongo"
 )
@@ -16,8 +17,8 @@ type TaskStorage struct {
 	coll  *mongo.Collection
 }
 
-func createTaskStorage(m *Mongo, n string) *TaskStorage {
-	return &TaskStorage{mongo: m, coll: m.db.Collection(n)}
+func createTaskStorage(m *Mongo, id string) *TaskStorage {
+	return &TaskStorage{mongo: m, coll: m.db.Collection(id)}
 }
 
 // StoreTask func
@@ -28,9 +29,14 @@ func (ts *TaskStorage) StoreTask(task models.Task) string {
 }
 
 // ReadTask func
-func (ts *TaskStorage) ReadTask(name string) models.Task {
+func (ts *TaskStorage) ReadTask(id string) models.Task {
 	var res models.Task
 	ts.coll.FindOne(context.Background(),
-		bson.NewDocument(bson.EC.String("name", name))).Decode(&res)
+		bson.NewDocument(bson.EC.String("name", id))).Decode(&res)
 	return res
+}
+
+// GetLog func
+func (ts *TaskStorage) GetLog(id string) storage.ILogEntryStorage {
+	return createLogEntryStorage(ts.mongo, ts.coll, id)
 }

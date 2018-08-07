@@ -16,7 +16,6 @@ type Mongo struct {
 	db    *mongo.Database
 
 	taskStorage *TaskStorage
-	logStorage  *LogStorage
 }
 
 // Connect func
@@ -26,17 +25,11 @@ func (m *Mongo) Connect(url string, database string) {
 
 	m.db = client.Database(database)
 	m.taskStorage = createTaskStorage(m, "tasks")
-	m.logStorage = createLogStorage(m, "logs")
 }
 
 // GetTaskStorage func
 func (m *Mongo) GetTaskStorage() storage.ITaskStorage {
 	return m.taskStorage
-}
-
-// GetLogStorage func
-func (m *Mongo) GetLogStorage() storage.ILogStorage {
-	return m.logStorage
 }
 
 func (m *Mongo) getID(x *mongo.InsertOneResult) string {
