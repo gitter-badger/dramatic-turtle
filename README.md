@@ -17,7 +17,6 @@
 1. Clone this repository to your folder $(folder)
 1. Start bash, powershell or the cli of your choice
 1. cd into $(folder)
-1. Invoke the Makefile routine "get" (make get). This will download all dependencies of the project.
 1. Invoke the Makefile routine "init" (make init). </br> This command will download all the dependencies and build the project.
 
 ### Deploying in production
