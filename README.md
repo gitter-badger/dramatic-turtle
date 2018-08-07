@@ -27,4 +27,4 @@ To build a docker image you can simply invoke the Makefile routine "docker-build
 
 #### Run the docker image
 
-To run the docker image you can simply invoke the Makefile routine "docker-run-image" (make docker-run).
+To run the docker image you can simply invoke the Makefile routine "docker-run-image" (make docker-run-image).
