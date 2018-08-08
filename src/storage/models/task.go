@@ -1,7 +1,12 @@
 package models
 
+import (
+	"github.com/mongodb/mongo-go-driver/bson/objectid"
+)
+
 // Task struct
 type Task struct {
-	Name string     `json:"name"`
-	Logs []LogEntry `json:"logs"`
+	ID   objectid.ObjectID `json:"_id,omitempty"`
+	Name string            `json:"name"`
+	Logs []LogEntry        `json:"logs"`
 }
