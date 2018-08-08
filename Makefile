@@ -47,7 +47,3 @@ docker-build-image:
 
 docker-run-image:
 	docker run -d -p 8080:8080 -t dramatic-turtle
-
-docker-build-project:
-	$(MAKE) get
-	$(MAKE) build-prod
