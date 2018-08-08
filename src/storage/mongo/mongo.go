@@ -10,6 +10,10 @@ import (
 	"github.com/mongodb/mongo-go-driver/mongo"
 )
 
+var (
+	taskCollectionName = "logs"
+)
+
 // Mongo struct
 type Mongo struct {
 	mongo *mongo.Client
@@ -24,7 +28,7 @@ func (m *Mongo) Connect(url string, database string) {
 	core.CheckErr(err)
 
 	m.db = client.Database(database)
-	m.taskStorage = createTaskStorage(m, "log")
+	m.taskStorage = createTaskStorage(m, taskCollectionName)
 }
 
 // GetTaskStorage func
