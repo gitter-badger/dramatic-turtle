@@ -21,7 +21,7 @@ func createNewTask(w http.ResponseWriter, r *http.Request) {
 		Logs: []models.LogEntry{},
 	}
 
-	taskID := dataStorage.GetTaskStorage().StoreTask(task)
+	taskID := dataStorage.GetTaskStorage().StoreTask(&task)
 
 	resp := v1.POSTLogTaskResponse{
 		ID:   taskID,
@@ -58,7 +58,7 @@ func readTaskByID(w http.ResponseWriter, r *http.Request) {
 	id := vars["id"]
 	task := dataStorage.GetTaskStorage().ReadTask(id)
 
-	resp := v1.CreateContractTask(&task)
+	resp := v1.CreateContractTask(task)
 
 	payload, err := json.Marshal(resp)
 	core.CheckErr(err)
@@ -75,7 +75,7 @@ func createLogEntryForTask(w http.ResponseWriter, r *http.Request) {
 	core.CheckErr(err)
 
 	logEntry := v1.CreateModelsLogEntry(&req.Entry)
-	logID := dataStorage.GetTaskStorage().GetLog(id).Append(logEntry)
+	logID := dataStorage.GetTaskStorage().GetLog(id).Append(&logEntry)
 
 	resp := v1.POSTTaskByIDLogResponse{
 		ID: logID,

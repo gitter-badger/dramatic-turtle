@@ -24,26 +24,26 @@ func createTaskStorage(m *Mongo, id string) *TaskStorage {
 }
 
 // StoreTask func
-func (ts *TaskStorage) StoreTask(task models.Task) string {
+func (ts *TaskStorage) StoreTask(task *models.Task) string {
 	id, err := ts.coll.InsertOne(context.Background(), task)
 	core.CheckErr(err)
 	return ts.mongo.getID(id)
 }
 
 // ReadTask func
-func (ts *TaskStorage) ReadTask(id string) models.Task {
+func (ts *TaskStorage) ReadTask(id string) *models.Task {
 	oid, err := objectid.FromHex(id)
 	core.CheckErr(err)
 	var res models.Task
 	ts.coll.FindOne(context.Background(),
 		bson.NewDocument(bson.EC.ObjectID("_id", oid))).Decode(&res)
-	return res
+	return &res
 }
 
 // ReadTasks func
-func (ts *TaskStorage) ReadTasks(checkFunc func(id string) bool) []storage.IDTask {
+func (ts *TaskStorage) ReadTasks(checkFunc func(id string) bool) []*storage.IDTask {
 	ctx := context.Background()
-	var res = []storage.IDTask{}
+	var res = []*storage.IDTask{}
 	cursor, err := ts.coll.Find(ctx, nil)
 	core.CheckErr(err)
 	defer cursor.Close(ctx)
@@ -59,7 +59,7 @@ func (ts *TaskStorage) ReadTasks(checkFunc func(id string) bool) []storage.IDTas
 				ID:   id,
 				Task: &currentTask,
 			}
-			res = append(res, data)
+			res = append(res, &data)
 		}
 	}
 	return res

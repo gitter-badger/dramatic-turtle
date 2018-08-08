@@ -26,7 +26,7 @@ func createLogEntryStorage(m *Mongo, coll *mongo.Collection, taskID string) *Log
 }
 
 // Append func
-func (les *LogEntryStorage) Append(e models.LogEntry) string {
+func (les *LogEntryStorage) Append(e *models.LogEntry) string {
 	taskID, err := objectid.FromHex(les.taskID)
 	core.CheckErr(err)
 
