@@ -17,6 +17,11 @@
             "label": "Docker: Remove dangling images",
             "type": "shell",
             "command": "docker rmi $(docker images --filter “dangling=true” -q --no-trunc)"
+        },
+        {
+            "label": "Docker: Remove dangling volumes",
+            "type": "shell",
+            "command": "docker volume rm $(docker volume ls -qf dangling=true)"
         }
     ]
 }
