@@ -1,5 +1,6 @@
 # CUSTOM
 [Bb]in/
+/src/main/debug
 
 # Binaries for programs and plugins
 *.exe
