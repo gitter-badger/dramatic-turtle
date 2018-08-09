@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"../../core"
+	"../../storage"
 	"../models"
 	"github.com/mongodb/mongo-go-driver/bson"
 	"github.com/mongodb/mongo-go-driver/bson/objectid"
@@ -26,7 +27,7 @@ func createLogEntryStorage(m *Mongo, coll *mongo.Collection, taskID string) *Log
 }
 
 // Append func
-func (les *LogEntryStorage) Append(e *models.LogEntry) string {
+func (les *LogEntryStorage) AppendLogEntry(e *models.LogEntry) string {
 	taskID, err := objectid.FromHex(les.taskID)
 	core.CheckErr(err)
 
@@ -43,4 +44,20 @@ func (les *LogEntryStorage) Append(e *models.LogEntry) string {
 	core.CheckErr(err)
 
 	return e.ID.Hex()
+}
+
+// ReadLogEntries func
+func (les *LogEntryStorage) ReadLogEntries(checkFunc func(id string) bool) []*storage.IDLogEntry {
+	task := les.mongo.GetTaskStorage().ReadTask(les.taskID)
+
+	entries := []*storage.IDLogEntry{}
+	for _, le := range task.Logs {
+		if checkFunc(le.ID.Hex()) {
+			entries = append(entries, &storage.IDLogEntry{
+				ID:       le.ID.Hex(),
+				LogEntry: &le,
+			})
+		}
+	}
+	return entries
 }

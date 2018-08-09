@@ -4,6 +4,12 @@ import (
 	"./models"
 )
 
+// IDLogEntry struct
+type IDLogEntry struct {
+	ID       string
+	LogEntry *models.LogEntry
+}
+
 // IDTask struct
 type IDTask struct {
 	ID   string
@@ -21,7 +27,8 @@ type ITaskStorage interface {
 
 // ILogEntryStorage interface
 type ILogEntryStorage interface {
-	Append(e *models.LogEntry) string
+	AppendLogEntry(e *models.LogEntry) string
+	ReadLogEntries(checkFunc func(id string) bool) []*IDLogEntry
 }
 
 // IStorage interface

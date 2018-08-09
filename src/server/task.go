@@ -75,10 +75,32 @@ func createLogEntryForTask(w http.ResponseWriter, r *http.Request) {
 	core.CheckErr(err)
 
 	logEntry := v1.CreateModelsLogEntry(&req.Entry)
-	logID := dataStorage.GetTaskStorage().GetLog(id).Append(&logEntry)
+	logID := dataStorage.GetTaskStorage().GetLog(id).AppendLogEntry(&logEntry)
 
 	resp := v1.POSTTaskByIDLogResponse{
 		ID: logID,
+	}
+
+	payload, err := json.Marshal(resp)
+	core.CheckErr(err)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(payload)
+}
+
+func readLogEntriesForTask(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	logs := dataStorage.GetTaskStorage().GetLog(id).ReadLogEntries(func(id string) bool { return true })
+
+	entries := []string{}
+	for _, l := range logs {
+		entries = append(entries, l.ID)
+	}
+
+	resp := v1.GETTaskByIDLogResponse{
+		ID:      id,
+		Entries: entries,
 	}
 
 	payload, err := json.Marshal(resp)

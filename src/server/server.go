@@ -31,7 +31,7 @@ func Start(conf config.Config) {
 	router.HandleFunc("/v1/log/task/{id}", readTaskByID).Methods("GET")
 
 	router.HandleFunc("/v1/log/task/{id}/log", createLogEntryForTask).Methods("POST")
-	//router.HandleFunc("/v1/log/task/{id}/log", stub).Methods("GET")
+	router.HandleFunc("/v1/log/task/{id}/log", readLogEntriesForTask).Methods("GET")
 	//router.HandleFunc("/v1/log/task/{id}/log/{logID}", stub).Methods("POST")
 	//router.HandleFunc("/v1/log/task/{id}/log/{logID}", stub).Methods("GET")
 
