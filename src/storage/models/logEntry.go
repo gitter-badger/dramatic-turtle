@@ -8,7 +8,7 @@ import (
 
 // LogEntry struct
 type LogEntry struct {
-	ID    objectid.ObjectID `json:"_id,omitempty"`
+	ID    objectid.ObjectID `json:"id,omitempty"`
 	Start time.Time         `json:"start"`
 	End   time.Time         `json:"end"`
 }

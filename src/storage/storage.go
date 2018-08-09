@@ -28,6 +28,7 @@ type ITaskStorage interface {
 // ILogEntryStorage interface
 type ILogEntryStorage interface {
 	AppendLogEntry(e *models.LogEntry) string
+	ReadLogEntry(id string) *models.LogEntry
 	ReadLogEntries(checkFunc func(id string) bool) []*IDLogEntry
 }
 

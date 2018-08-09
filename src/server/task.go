@@ -87,6 +87,23 @@ func createLogEntryForTask(w http.ResponseWriter, r *http.Request) {
 	w.Write(payload)
 }
 
+func readLogEntryForTask(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	taskID := vars["id"]
+	logID := vars["logID"]
+
+	entry := dataStorage.GetTaskStorage().GetLog(taskID).ReadLogEntry(logID)
+
+	resp := v1.GetLogEntryForTaskResponse{
+		Entry: v1.CreateContractLogEntry(entry),
+	}
+
+	payload, err := json.Marshal(resp)
+	core.CheckErr(err)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(payload)
+}
+
 func readLogEntriesForTask(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]

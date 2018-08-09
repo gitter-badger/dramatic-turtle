@@ -25,6 +25,7 @@ func createTaskStorage(m *Mongo, id string) *TaskStorage {
 
 // StoreTask func
 func (ts *TaskStorage) StoreTask(task *models.Task) string {
+	task.ID = objectid.New()
 	id, err := ts.coll.InsertOne(context.Background(), task)
 	core.CheckErr(err)
 	return ts.mongo.getID(id)
@@ -36,7 +37,7 @@ func (ts *TaskStorage) ReadTask(id string) *models.Task {
 	core.CheckErr(err)
 	var res models.Task
 	ts.coll.FindOne(context.Background(),
-		bson.NewDocument(bson.EC.ObjectID("_id", oid))).Decode(&res)
+		bson.NewDocument(bson.EC.ObjectID("id", oid))).Decode(&res)
 	return &res
 }
 
@@ -51,7 +52,7 @@ func (ts *TaskStorage) ReadTasks(checkFunc func(id string) bool) []*storage.IDTa
 	current := bson.NewDocument()
 	for cursor.Next(ctx) {
 		cursor.Decode(current)
-		id := current.Lookup("_id").Interface().(objectid.ObjectID).Hex()
+		id := current.Lookup("id").Interface().(objectid.ObjectID).Hex()
 		var currentTask models.Task
 		if checkFunc(id) {
 			cursor.Decode(&currentTask)

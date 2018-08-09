@@ -33,7 +33,7 @@ func (les *LogEntryStorage) AppendLogEntry(e *models.LogEntry) string {
 
 	e.ID = objectid.New()
 	filter := bson.NewDocument(
-		bson.EC.ObjectID("_id", taskID),
+		bson.EC.ObjectID("id", taskID),
 	)
 	update := bson.NewDocument(
 		bson.EC.SubDocumentFromElements("$push",
@@ -44,6 +44,18 @@ func (les *LogEntryStorage) AppendLogEntry(e *models.LogEntry) string {
 	core.CheckErr(err)
 
 	return e.ID.Hex()
+}
+
+// ReadLogEntry func
+func (les *LogEntryStorage) ReadLogEntry(id string) *models.LogEntry {
+	task := les.mongo.GetTaskStorage().ReadTask(les.taskID)
+
+	for _, le := range task.Logs {
+		if id == le.ID.Hex() {
+			return &le
+		}
+	}
+	return &models.LogEntry{}
 }
 
 // ReadLogEntries func
