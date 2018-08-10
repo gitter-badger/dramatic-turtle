@@ -9,7 +9,7 @@ function createWindow() {
         width: 800,
     });
 
-    mainWindow.loadFile(path.join(__dirname, "../index.html"));
+    mainWindow.loadFile(path.join(__dirname, "../res/sites/index.html"));
     mainWindow.on("closed", () => {
         mainWindow = null;
     });
