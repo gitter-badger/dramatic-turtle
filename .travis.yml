@@ -1,7 +1,13 @@
 language: go
 
-sudo: false
+sudo: required
 
-script:
-  - make init
-  - make docker-build-image
+services:
+  - docker
+
+jobs:  
+  include:
+    - stage: "Build Service"
+      name: "Build Service"
+      before_install: cd service
+      script: sh build.sh
