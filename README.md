@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/HeikoAlexanderWeber/dramatic-turtle.svg?branch=master)](https://travis-ci.org/HeikoAlexanderWeber/dramatic-turtle)
 [![Go Report Card](https://goreportcard.com/badge/github.com/HeikoAlexanderWeber/dramatic-turtle)](https://goreportcard.com/report/github.com/HeikoAlexanderWeber/dramatic-turtle)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ce8860f62a4347c296f047b8ceec26a5)](https://www.codacy.com/project/HeikoAlexanderWeber/dramatic-turtle/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HeikoAlexanderWeber/dramatic-turtle&amp;utm_campaign=Badge_Grade_Dashboard)
-[![license](https://img.shields.io/badge/LICENSE-GPL%20v3.0-brightgreen.svg)](https://github.com/HeikoAlexanderWeber/dramatic-turtle/blob/master/LICENSE)
+[![license](https://img.shields.io/badge/LICENSE-GPL%20v3.0-brightgreen.svg)](https://github.com/HeikoAlexanderWeber/dramatic-turtle/blob/master/LICENSE) [![Join the chat at https://gitter.im/dramatic-turtle/Lobby](https://badges.gitter.im/dramatic-turtle/Lobby.svg)](https://gitter.im/dramatic-turtle/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 # dramatic-turtle
 
 ## Getting started
